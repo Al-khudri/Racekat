@@ -12,7 +12,7 @@ public class DatabaseConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/DiktatorBase");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/CatManagementSystem");
         dataSource.setUsername("root");
         dataSource.setPassword("Root");
         return dataSource;
