@@ -17,13 +17,13 @@ public class Racekatrepo {
     }
     public Racekat save (Racekat racekat) {
         String sql = "insert into * Racekat() values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,);
+        jdbcTemplate.update(sql);
         return racekat;
 
     }
-    public Racekat findById(int id) {
-        String sql = "select * from Racekat where id=?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), id);
+    public Racekat findByEmail(String Email) {
+        String sql = "select * from Racekat where email=?";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), Email);
 
     }
     public List<Racekat> findAll() {
@@ -33,11 +33,11 @@ public class Racekatrepo {
     }
     public void update(Racekat racekat) {
         String sql = "update Racekat set name=?, description=? where id=?";
-        jdbcTemplate.update(sql,);
+        jdbcTemplate.update(sql);
     }
 
 
-    public void delete(int id) {
+    public void delete(String Email) {
         String sql = "delete from Racekat where Email=?";
         jdbcTemplate.update(sql,Email);
 

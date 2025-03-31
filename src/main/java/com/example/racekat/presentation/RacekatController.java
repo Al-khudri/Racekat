@@ -1,6 +1,7 @@
 package com.example.racekat.presentation;
 
 import com.example.racekat.application.RacekatService;
+import jakarta.servlet.http.HttpSession;
 import com.example.racekat.application.Userservice;
 import com.example.racekat.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class RacekatController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user,HtppSession session, Model model){
+    public String login(@ModelAttribute User user,HttpSession session, Model model){
         User loggedIn = Userservice.Login(user.getEmail(),user.getPassword());
         if(loggedIn == null){
-            model.addAttribute("user", new User());
+            session.setAttribute("user", loggedIn);
             return "startskærm";
         } else {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");

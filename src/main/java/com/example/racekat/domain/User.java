@@ -1,6 +1,12 @@
 package com.example.racekat.domain;
 
 public class User {
+
+
+    public User() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -12,7 +18,7 @@ public class User {
     public String getEmail() {
         return Email;
     }
-    public void setName(String Email) {
+    public void setEmail(String Email) {
         this.Email = Email;
     }
 
@@ -28,7 +34,7 @@ public class User {
         return firstname;
     }
 
-    public void set( String firstname) {
+    public void setFirstname( String firstname) {
         this.firstname = firstname;
     }
 

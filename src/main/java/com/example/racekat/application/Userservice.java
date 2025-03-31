@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class Userservice {
 
-    private final Racekatrepo racekatrepo = null;
+    private final Racekatrepo racekatrepo;
 
     public Userservice(Racekatrepo racekatrepo) {
         this.racekatrepo = racekatrepo;
@@ -19,13 +19,13 @@ public class Userservice {
         return null;
     }
 
-    public Racekatrepo createRacekatrepo() {
-        return racekatrepo;
+    public Racekat createRacekatrepo(Racekat racekat) {
+        return racekatrepo.save(racekat);
     }
-    public Racekatrepo getRacekatrepo() {
-        return racekatrepo;
+    public Racekat getRacekatrepo(String Email) {
+        return racekatrepo.findByEmail(Email);
     }
-    public Racekatrepo List<Racekat> getAllRacekat(){
+    public List<Racekat> getAllRacekat(){
         return racekatrepo.findAll();
     }
 
@@ -34,7 +34,7 @@ public class Userservice {
         racekatrepo.update(racekat);
     }
 
-    public void deleteRacekatrepo() {
+    public void deleteRacekatrepo(String Email) {
         racekatrepo.delete(Email);
     }
 }
