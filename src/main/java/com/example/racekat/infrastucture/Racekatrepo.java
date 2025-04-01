@@ -16,10 +16,9 @@ public class Racekatrepo {
         this.jdbcTemplate = jdbcTemplate;
     }
     public Racekat save (Racekat racekat) {
-        String sql = "insert into * Racekat() values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(sql);
+        String sql = "INSERT INTO Racekat (Catname,  Breed , Age) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql,racekat.getCatName(),racekat.getBreed(),racekat.getAge());
         return racekat;
-
     }
     public Racekat findByEmail(String Email) {
         String sql = "select * from Racekat where email=?";
@@ -32,7 +31,7 @@ public class Racekatrepo {
 
     }
     public void update(Racekat racekat) {
-        String sql = "update Racekat set name=?, description=? where id=?";
+        String sql = "update Racekat set Catname=?, Breed=?, Age=? where id=?";
         jdbcTemplate.update(sql);
     }
 
