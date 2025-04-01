@@ -3,38 +3,50 @@ package com.example.racekat.application;
 import com.example.racekat.domain.Racekat;
 import com.example.racekat.domain.User;
 import com.example.racekat.infrastucture.Racekatrepo;
+import com.example.racekat.infrastucture.Userrepo;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class Userservice {
 
-    private final Racekatrepo racekatrepo;
+    private final Userrepo userrepo;
 
-    public Userservice(Racekatrepo racekatrepo) {
-        this.racekatrepo = racekatrepo;
+    public Userservice(Userrepo userrepo) {
+        this.userrepo = userrepo;
     }
 
-    public static User Login(String email, String password) {
+    public User Login(String email, String password) {
+        try{
+            User user = userrepo.findByEmail(email);
+            if (user.getPassword().equals(password)) {
+                return user;
+            }
+        } catch (Exception e) {
+
+        }
+
         return null;
     }
 
-    public Racekat createRacekatrepo(Racekat racekat) {
-        return racekatrepo.save(racekat);
-    }
-//    public Racekat getRacekatrepo(String Email) {
-//        return racekatrepo.findByEmail(Email);
-//    }
-    public List<Racekat> getAllRacekat(){
-        return racekatrepo.findAll();
+    public User createUser(User user) {
+        return userrepo.save(user);
     }
 
-
-    public void setRacekatrepo(Racekat racekat) {
-        racekatrepo.update(racekat);
+    public User getUserByEmail(String Email) {
+        return userrepo.findByEmail(Email);
     }
 
-    public void deleteRacekatrepo(String Email) {
-        racekatrepo.delete(Email);
+    public List<User> getAllUsers(){
+        return userrepo.findAll();
+    }
+
+
+    public void updateUser(User user) {
+        userrepo.update(user);
+    }
+
+    public void deleteUser(String Email) {
+        userrepo.delete(Email);
     }
 }

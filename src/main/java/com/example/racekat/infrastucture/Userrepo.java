@@ -13,6 +13,7 @@ public class Userrepo {
     public Userrepo (JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
     public User save (User user) {
         String sql = "INSERT INTO Members (Email, Password, Firstname, Lastname) VALUES (?, ?, ?, ?)";
         jdbcTemplate.update(sql,user.getFirstname(),user.getLastname(),user.getEmail(),user.getPassword());
@@ -20,8 +21,13 @@ public class Userrepo {
 
     }
     public User findByEmail(String Email) {
-        String sql = "select * from Members where Email=?";
-        return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), Email);
+        try {
+            String sql = "select * from Members where Email=?";
+            return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), Email);
+        } catch (Exception e) {
+            return null;
+        }
+
 
     }
     public List<User> findAll() {
