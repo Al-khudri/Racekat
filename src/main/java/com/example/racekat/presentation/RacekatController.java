@@ -18,6 +18,24 @@ public class RacekatController {
     @Autowired
     private Userservice userService;
 
+
+    @GetMapping("/register")
+    public String showRegisterForm(Model model){
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute User user, Model model){
+        if (userService(user)){
+            return "register:/login";
+        }else{
+            model.addAttribute("ERROR","Brugernavn findes allerede");
+            return "register";
+
+        }
+    }
+
     @GetMapping("/login")
     public String showLogin(Model model){
         model.addAttribute("user", new User());
@@ -34,6 +52,22 @@ public class RacekatController {
             model.addAttribute("error", "Forkert brugernavn eller adgangskode.");
             return "login";
         }
-
     }
+
+    @GetMapping("/startskærm")
+    public String showStartForm(HttpSession session, Model model){
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+        model.addAttribute("username", user.getEmail());
+        return "welcome";
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+
 }
