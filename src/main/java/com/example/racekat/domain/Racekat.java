@@ -1,6 +1,7 @@
 package com.example.racekat.domain;
 
 public class Racekat {
+
     public int getId() {
         return id;
     }
