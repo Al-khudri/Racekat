@@ -22,9 +22,9 @@ public class Userservice {
     public Racekat createRacekatrepo(Racekat racekat) {
         return racekatrepo.save(racekat);
     }
-    public Racekat getRacekatrepo(String Email) {
-        return racekatrepo.findByEmail(Email);
-    }
+//    public Racekat getRacekatrepo(String Email) {
+//        return racekatrepo.findByEmail(Email);
+//    }
     public List<Racekat> getAllRacekat(){
         return racekatrepo.findAll();
     }

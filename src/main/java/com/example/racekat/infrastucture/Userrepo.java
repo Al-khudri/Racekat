@@ -1,12 +1,12 @@
 package com.example.racekat.infrastucture;
 
 import com.example.racekat.domain.User;
-import com.example.racekat.domain.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
+@Repository
 public class Userrepo {
     private JdbcTemplate jdbcTemplate;
 

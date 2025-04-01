@@ -20,11 +20,11 @@ public class Racekatrepo {
         jdbcTemplate.update(sql,racekat.getCatName(),racekat.getBreed(),racekat.getAge());
         return racekat;
     }
-    public Racekat findByEmail(String Email) {
-        String sql = "select * from Racekat where email=?";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), Email);
+   // public Racekat findByEmail(String Email) {
+      //  String sql = "select * from Racekat where email=?";
+      //  return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), Email);
 
-    }
+    //}
     public List<Racekat> findAll() {
         String sql = "select * from Racekat";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class));

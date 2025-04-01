@@ -2,9 +2,22 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
 </head>
 <body>
-
+<div class="container">
+    <h2>Opret bruger</h2>
+    <form th:action="@{/register}" th:object="${user}" method="post">
+        <label>Brugernavn</label>
+        <input type="text" th:field="*{email}" required>
+        <label>Password</label>
+        <input type="text" th:field="*{password}" required>
+        <div class="error" th:text="${error}"></div>
+        <button type="submit">Register</button>
+    </form>
+    <div class="link">
+        <a href="/login">Allrede bruger? Log ind</a>
+    </div>
+</div>
 </body>
 </html>

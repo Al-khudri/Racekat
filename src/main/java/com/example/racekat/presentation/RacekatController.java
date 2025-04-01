@@ -25,16 +25,16 @@ public class RacekatController {
         return "register";
     }
 
-    @PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model){
-        if (userService(user)){
-            return "register:/login";
-        }else{
-            model.addAttribute("ERROR","Brugernavn findes allerede");
-            return "register";
-
-        }
-    }
+//    @PostMapping("/register")
+//    public String register(@ModelAttribute User user, Model model){
+//        if (userService(user)){
+//            return "register:/login";
+//        }else{
+//            model.addAttribute("ERROR","Brugernavn findes allerede");
+//            return "register";
+//
+//        }
+//    }
 
     @GetMapping("/login")
     public String showLogin(Model model){
@@ -61,7 +61,7 @@ public class RacekatController {
             return "redirect:/login";
         }
         model.addAttribute("username", user.getEmail());
-        return "welcome";
+        return "startskærm";
     }
     @GetMapping("/logout")
     public String logout(HttpSession session){
