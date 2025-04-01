@@ -1,8 +1,7 @@
 package com.example.racekat.application;
 
-import com.example.racekat.domain.Racekat;
+
 import com.example.racekat.domain.User;
-import com.example.racekat.infrastucture.Racekatrepo;
 import com.example.racekat.infrastucture.Userrepo;
 import org.springframework.stereotype.Service;
 import java.util.List;

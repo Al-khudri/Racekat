@@ -20,6 +20,17 @@ public class Racekatrepo {
         jdbcTemplate.update(sql,racekat.getCatName(),racekat.getBreed(),racekat.getAge());
         return racekat;
     }
+
+    public Racekat findByName(String Catname) {
+        try {
+            String sql = "select * from Racekat where Catname=?";
+            jdbcTemplate.query(sql, new Object[]{Catname}, new BeanPropertyRowMapper<>(Racekat.class));
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+
     public List<Racekat> findAll() {
         String sql = "select * from Racekat";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class));

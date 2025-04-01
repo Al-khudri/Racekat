@@ -1,6 +1,7 @@
 package com.example.racekat.presentation;
 
 
+import com.example.racekat.application.RacekatService;
 import jakarta.servlet.http.HttpSession;
 import com.example.racekat.application.Userservice;
 import com.example.racekat.domain.User;
@@ -17,6 +18,7 @@ public class RacekatController {
 
     @Autowired
     private Userservice userService;
+    private RacekatService racekatService;
 
 
     @GetMapping("/register")
