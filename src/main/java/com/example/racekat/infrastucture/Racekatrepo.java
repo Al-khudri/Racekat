@@ -30,7 +30,7 @@ public class Racekatrepo {
     public Racekat findByName(String Catname) {
         try {
             String sql = "select * from Racekat where Catname=?";
-            jdbcTemplate.query(sql, new Object[]{Catname}, new BeanPropertyRowMapper<>(Racekat.class));
+            return jdbcTemplate.queryForObject(sql, new Object[]{Catname}, new BeanPropertyRowMapper<>(Racekat.class));
         } catch (Exception e) {
 
         }
