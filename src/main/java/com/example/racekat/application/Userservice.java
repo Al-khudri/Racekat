@@ -31,6 +31,7 @@ public class Userservice {
     public User createUser(User user) {
         return userrepo.save(user);
 <<<<<<< HEAD
+<<<<<<< HEAD
     }
 <<<<<<< HEAD
     public Racekat getRacekatrepo(int catId) {
@@ -42,6 +43,9 @@ public class Userservice {
 =======
     }
 >>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+=======
+    }
+>>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
 
     public User getUserByEmail(String Email) {
         return userrepo.findByEmail(Email);
@@ -50,6 +54,9 @@ public class Userservice {
     public List<User> getAllUsers(){
         return userrepo.findAll();
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+=======
 >>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
 =======
 >>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
