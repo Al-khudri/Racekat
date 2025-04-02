@@ -29,22 +29,6 @@ public class RacekatController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user, Model model){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if (userService(user)){
-            return "register:/login";
-        }else{
-            model.addAttribute("ERROR","Brugernavn findes allerede");
-            return "register";
-
-        }
-    }
-=======
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
         try {
             User existingUser = userService.getUserByEmail(user.getEmail());
             if(existingUser != null){

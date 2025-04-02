@@ -55,27 +55,7 @@ public class Userservice {
     }
 }
 
-    public User getUserByEmail(String Email) {
-        return userrepo.findByEmail(Email);
-    }
-
-    public List<User> getAllUsers(){
-        return userrepo.findAll();
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-    }
 
 
-    public void updateUser(User user) {
-        userrepo.update(user);
-    }
 
-    public void deleteUser(String Email) {
-        userrepo.delete(Email);
-    }
-}
+
