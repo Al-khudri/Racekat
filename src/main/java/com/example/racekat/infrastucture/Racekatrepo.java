@@ -20,18 +20,12 @@ public class Racekatrepo {
         jdbcTemplate.update(sql,racekat.getCatName(),racekat.getBreed(),racekat.getAge());
         return racekat;
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     public List<Racekat> findByid(int catId) {
         String sql = "select * from Racekat where CatID=?";
        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), catId);
     }
-=======
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+
 
     public Racekat findByName(String Catname) {
         try {
@@ -43,13 +37,7 @@ public class Racekatrepo {
         return null;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+
     public List<Racekat> findAll() {
         String sql = "select * from Racekat";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class));

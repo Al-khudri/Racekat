@@ -1,24 +1,11 @@
 package com.example.racekat.domain;
 
 public class Racekat {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     public int getcatId() {
         return catId;
-=======
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+    }
 
-    public int getId() {
-        return id;
-    }
-    public void setId(int id){
-        this.id = id;
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-    }
     public void setId(int catId){
         this.catId = catId;}
 

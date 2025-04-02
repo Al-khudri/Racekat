@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Velkommen</title>
-
+    <link rel="stylesheet" href="../static/startersheet.css">
 </head>
 <body>
 <div class="container">
-    <h2>Velkommen <span th:text="${email}"></span>!</h2>
+    <h2>Velkommen<span th:text="${email}"></span>!</h2>
     <p>Du er nu på vej ind i mest eksklusive katte gruppe</p>
-
+    <a href="/login"> Allerede bruger</a>
+    <a href="/register"> Nyt medlem</a>
 
 </div>
 </body>

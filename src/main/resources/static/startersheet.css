@@ -79,6 +79,14 @@ a {
     color: #4d4948;
     text-decoration: none;
 }
+a{
+    padding: 1px 6px;
+    border: 1px outset buttonborder;
+    border-radius: 3px;
+    color: buttontext;
+    background-color: transparent;
+    text-decoration: none;
+}
 
 a:hover {
     text-decoration: underline;

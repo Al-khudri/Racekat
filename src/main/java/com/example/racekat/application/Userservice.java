@@ -6,6 +6,8 @@ import com.example.racekat.infrastucture.Userrepo;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+
+
 @Service
 public class Userservice {
 
@@ -16,7 +18,7 @@ public class Userservice {
     }
 
     public User Login(String email, String password) {
-        try{
+        try {
             User user = userrepo.findByEmail(email);
             if (user.getPassword().equals(password)) {
                 return user;
@@ -30,22 +32,28 @@ public class Userservice {
 
     public User createUser(User user) {
         return userrepo.save(user);
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
     }
-<<<<<<< HEAD
-    public Racekat getRacekatrepo(int catId) {
-        return racekatrepo.findByid(catId);
+
+
+    public User getUserByEmail(String Email) {
+        return userrepo.findByEmail(Email);
     }
-    public List<Racekat> getAllRacekat(){
-        return racekatrepo.findAll();
-=======
-=======
+
+    public List<User> getAllUsers() {
+        return userrepo.findAll();
+
     }
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
-=======
+
+    public void updateUser(User user) {
+        userrepo.update(user);
     }
->>>>>>> 75d63842b146b0a72b1669e8540821318a30952e
+
+    public void deleteUser(String Email) {
+        userrepo.delete(Email);
+    }
+}
 
     public User getUserByEmail(String Email) {
         return userrepo.findByEmail(Email);
