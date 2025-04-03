@@ -53,7 +53,6 @@ public class User {
     private String lastname;
 
 
-
     public User(int id, String Email, String password, String firstname, String lastname) {
         this.id = id;
         this.Email = Email;

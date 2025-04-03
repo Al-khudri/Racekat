@@ -33,6 +33,8 @@ public class Racekat {
     private String breed;
     private int age;
 
+    public Racekat(){}
+
     public Racekat(int catId, String catname, String breed, int age) {
         this.catId = catId;
         this.catname = catname;

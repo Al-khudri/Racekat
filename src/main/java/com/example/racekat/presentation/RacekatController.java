@@ -16,10 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class RacekatController {
 
 
-    @Autowired
+
+
     private Userservice userService;
     private RacekatService racekatService;
 
+    public RacekatController() {
+    }
+
+    public RacekatController(Userservice userService, RacekatService racekatService) {
+        this.userService = userService;
+        this.racekatService = racekatService;
+    }
 
     @GetMapping("/register")
     public String showRegisterForm(Model model){
