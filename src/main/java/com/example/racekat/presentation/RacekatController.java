@@ -69,7 +69,7 @@ public class RacekatController {
         User loggedInUser = userService.getUserByEmail(user.getEmail());
         if(loggedInUser != null){
             session.setAttribute("loggedInUser", loggedInUser);
-            return "redirect:/startskærm";
+            return "redirect:/index";
         }else {
             model.addAttribute("ERROR","Brugernavn findes allerede");
             return "login";

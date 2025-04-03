@@ -17,9 +17,6 @@ public class RacekatService {
         this.racekatrepo = racekatrepo;
     }
 
-
-
-
     public Racekat createKat(Racekat racekat) {
         return racekatrepo.save(racekat);
     }
@@ -31,7 +28,6 @@ public class RacekatService {
     public List<Racekat> getAllUsers(){
         return racekatrepo.findAll();
     }
-
 
     public void updateRacekat(Racekat racekat) {
         racekatrepo.update(racekat);

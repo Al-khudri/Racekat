@@ -21,7 +21,7 @@ public class Racekatrepo {
         return racekat;
     }
 
-    public List<Racekat> findByid(int catId) {
+    public List<Racekat> findById(int catId) {
         String sql = "select * from Racekat where CatID=?";
        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), catId);
     }
