@@ -5,7 +5,6 @@ import com.example.racekat.application.RacekatService;
 import jakarta.servlet.http.HttpSession;
 import com.example.racekat.application.Userservice;
 import com.example.racekat.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +26,12 @@ public class RacekatController {
     public RacekatController(Userservice userService, RacekatService racekatService) {
         this.userService = userService;
         this.racekatService = racekatService;
+    }
+
+
+    @GetMapping("/")
+    public String index(Model model){
+        return "redirect:/index";
     }
 
     @GetMapping("/register")
@@ -72,14 +77,14 @@ public class RacekatController {
     }
 
 
-    @GetMapping("/startskærm")
+    @GetMapping("/index")
     public String showStartForm(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         if (user == null) {
             return "redirect:/login";
         }
         model.addAttribute("username", user.getEmail());
-        return "startskærm";
+        return "index";
     }
     @GetMapping("/logout")
     public String logout(HttpSession session){
