@@ -5,10 +5,7 @@ body {
     background-repeat: no-repeat; /* Do not repeat the image */
 
     padding-bottom: 50px;
-}
 
-
-body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
