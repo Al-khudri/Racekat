@@ -66,7 +66,7 @@ public class RacekatController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user,HttpSession session, Model model){
-        User loggedInUser = userService.getUserByEmail(user.getEmail());
+        User loggedInUser = userService.Login(user.getEmail(), user.getPassword());
         if(loggedInUser != null){
             session.setAttribute("loggedInUser", loggedInUser);
             return "redirect:/index";
