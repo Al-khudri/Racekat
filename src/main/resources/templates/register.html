@@ -9,7 +9,7 @@
 <div class="container">
     <h2>Opret bruger</h2>
     <form th:action="@{/register}" th:object="${user}" method="post">
-        <label>Brugernavn</label>
+        <label>Email</label>
         <input type="text" th:field="*{email}" required>
         <label>Password</label>
         <input type="text" th:field="*{password}" required>
@@ -18,7 +18,7 @@
         <label>Efternavn</label>
         <input type="text" th:field="*{lastname}" required>
         <div class="error" th:text="${error}"></div>
-        <button type="submit">Register</button>
+        <button type="submit">Register <a href="/loggedin"> </a></button>
     </form>
     <div class="link">
         <a href="/login">Allrede bruger? Log ind</a>

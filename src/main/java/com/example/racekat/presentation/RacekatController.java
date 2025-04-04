@@ -81,7 +81,7 @@ public class RacekatController {
     public String showStartForm(HttpSession session, Model model){
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            return "redirect:/login";
+            return "index";
         }
         model.addAttribute("username", user.getEmail());
         return "index";
