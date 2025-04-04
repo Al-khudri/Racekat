@@ -17,7 +17,7 @@ public class Userrepo {
 
     public User save (User user) {
         String sql = "INSERT INTO Members (Email, Password, Firstname, Lastname) VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql,user.getFirstname(),user.getLastname(),user.getEmail(),user.getPassword());
+        jdbcTemplate.update(sql, user.getEmail(), user.getPassword(), user.getFirstname(), user.getLastname());
         return user;
 
     }
