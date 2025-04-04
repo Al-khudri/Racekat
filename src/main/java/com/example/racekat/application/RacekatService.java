@@ -17,7 +17,7 @@ public class RacekatService {
         this.racekatrepo = racekatrepo;
     }
 
-    public Racekat createKat(Racekat racekat) {
+    public Racekat createCat(Racekat racekat) {
         return racekatrepo.save(racekat);
     }
 

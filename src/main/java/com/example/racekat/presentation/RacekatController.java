@@ -69,7 +69,7 @@ public class RacekatController {
         User loggedInUser = userService.Login(user.getEmail(), user.getPassword());
         if(loggedInUser != null){
             session.setAttribute("loggedInUser", loggedInUser);
-            return "redirect:/index";
+            return "redirect:/loggedin";
         }else {
             model.addAttribute("ERROR","Brugernavn findes allerede");
             return "login";
@@ -86,6 +86,7 @@ public class RacekatController {
         model.addAttribute("username", user.getEmail());
         return "index";
     }
+
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
