@@ -23,7 +23,7 @@ public class Userrepo {
     }
     public User findByEmail(String Email) {
         try {
-            String sql = "select * from Members where Email=?";
+            String sql = "select * from Members where Email= ?";
             return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class), Email);
         } catch (Exception e) {
             return null;
