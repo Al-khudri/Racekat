@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class Racekatrepo {
+public class Racekatrepo  {
 
     private JdbcTemplate jdbcTemplate;
 

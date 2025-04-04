@@ -4,6 +4,7 @@ package com.example.racekat.application;
 import com.example.racekat.domain.User;
 import com.example.racekat.infrastucture.Userrepo;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.util.List;
 
 
@@ -13,6 +14,9 @@ public class Userservice {
 
     private final Userrepo userrepo;
 
+
+
+
     public Userservice(Userrepo userrepo) {
         this.userrepo = userrepo;
     }
@@ -20,10 +24,14 @@ public class Userservice {
     public User Login(String email, String password) {
         try {
             User user = userrepo.findByEmail(email);
-            if (user.getPassword().equals(password)) {
-                return user;
+            if (user != null) {
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                if (passwordEncoder.matches(password, user.getPassword())) {
+                    return user;
+                }
             }
         } catch (Exception e) {
+            System.err.println("login failed" + e.getMessage());
 
         }
 
@@ -31,9 +39,10 @@ public class Userservice {
     }
 
     public User createUser(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedpassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedpassword);
         return userrepo.save(user);
-
-
     }
 
 

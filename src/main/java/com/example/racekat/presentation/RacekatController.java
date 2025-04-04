@@ -71,7 +71,7 @@ public class RacekatController {
             session.setAttribute("loggedInUser", loggedInUser);
             return "redirect:/loggedin";
         }else {
-            model.addAttribute("ERROR","Brugernavn findes allerede");
+            model.addAttribute("ERROR","Forkert e-mail eller adgangskode");
             return "login";
         }
     }
@@ -79,7 +79,7 @@ public class RacekatController {
 
     @GetMapping("/index")
     public String showStartForm(HttpSession session, Model model){
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("LoggedInUser");
         if (user == null) {
             return "index";
         }
