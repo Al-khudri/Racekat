@@ -26,15 +26,20 @@ public class Userservice {
 
 
 
+    // Replace only the Login method in your Userservice.java
     public User Login(String email, String password) {
         // First try hardcoded test user
         String testEmail = "test@test.com";
         String testPassword = "123";
 
+        System.out.println("Login attempt with email: " + email);
+
         if (email.equals(testEmail) && password.equals(testPassword)) {
+            System.out.println("Hardcoded user login successful");
             User user = new User();
             user.setEmail(testEmail);
-            user.setPassword(testPassword);
+            // Don't set the actual password in the user object for security
+            user.setPassword("[PROTECTED]");
             user.setFirstname("Test");
             user.setLastname("User");
             user.setId(1);
@@ -44,16 +49,22 @@ public class Userservice {
         // If not the test user, try database login
         try {
             User user = userrepo.findByEmail(email);
+            System.out.println("Database lookup result: " + (user != null ? "User found" : "User not found"));
+
             if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+                System.out.println("Database user authentication successful");
                 return user;
+            } else if (user != null) {
+                System.out.println("Password did not match");
             }
         } catch (Exception e) {
             System.err.println("Login failed: " + e.getMessage());
+            e.printStackTrace();
         }
 
+        System.out.println("Login failed");
         return null;
     }
-
 //    public User Login(String email, String password) {
 //        try {
 //            User user = userrepo.findByEmail(email);
