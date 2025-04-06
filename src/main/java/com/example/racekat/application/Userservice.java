@@ -13,36 +13,45 @@ import java.util.List;
 public class Userservice {
 
     private final Userrepo userrepo;
+    private final BCryptPasswordEncoder passwordEncoder;
 
 
 
 
     public Userservice(Userrepo userrepo) {
         this.userrepo = userrepo;
+        this.passwordEncoder = new BCryptPasswordEncoder();
     }
 
 
 
 
     public User Login(String email, String password) {
-        // Hardcoded test user credentials
+        // First try hardcoded test user
         String testEmail = "test@test.com";
-        String testPassword = "123"; // This should be the hashed version if using BCrypt
+        String testPassword = "123";
 
-        // Check if the provided credentials match the hardcoded ones
         if (email.equals(testEmail) && password.equals(testPassword)) {
-            // Create a new User object with hardcoded values
             User user = new User();
             user.setEmail(testEmail);
-            user.setPassword(testPassword); // You may want to set a hashed password if needed
+            user.setPassword(testPassword);
             user.setFirstname("Test");
-            user.setLastname("User ");
-            user.setId(1); // Set a test ID
-
-            return user; // Return the hardcoded user
+            user.setLastname("User");
+            user.setId(1);
+            return user;
         }
 
-        return null; // Return null if credentials do not match
+        // If not the test user, try database login
+        try {
+            User user = userrepo.findByEmail(email);
+            if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+                return user;
+            }
+        } catch (Exception e) {
+            System.err.println("Login failed: " + e.getMessage());
+        }
+
+        return null;
     }
 
 //    public User Login(String email, String password) {
@@ -63,7 +72,6 @@ public class Userservice {
 //    }
 
     public User createUser(User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String hashedpassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedpassword);
         return userrepo.save(user);
@@ -80,6 +88,9 @@ public class Userservice {
     }
 
     public void updateUser(User user) {
+        if (!user.getPassword().startsWith("$2a$)")){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userrepo.update(user);
     }
 

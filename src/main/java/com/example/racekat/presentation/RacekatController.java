@@ -68,8 +68,8 @@ public class RacekatController {
     public String login(@ModelAttribute User user,HttpSession session, Model model){
         User loggedInUser = userService.Login(user.getEmail(), user.getPassword());
         if(loggedInUser != null){
-            session.setAttribute("loggedInUser", loggedInUser);
-            return "redirect:/loggedin";
+            session.setAttribute("user", loggedInUser);
+            return "redirect:/index";
         }else {
             model.addAttribute("ERROR","Forkert e-mail eller adgangskode");
             return "login";
@@ -81,9 +81,9 @@ public class RacekatController {
     public String showStartForm(HttpSession session, Model model){
         User user = (User) session.getAttribute("LoggedInUser");
         if (user == null) {
-            return "index";
+            return "redirect:/login";
         }
-        model.addAttribute("username", user.getEmail());
+        model.addAttribute("email", user.getEmail());
         return "index";
     }
 

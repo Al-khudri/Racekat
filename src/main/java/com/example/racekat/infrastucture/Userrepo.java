@@ -37,10 +37,9 @@ public class Userrepo {
 
     }
     public void update(User user) {
-        String sql = "update Members set Password=?, FirstName=?, Lastname=? where id=?";
-        jdbcTemplate.update(sql);
+        String sql = "update Members set Password=?, FirstName=?, Lastname=? where Email=?";
+        jdbcTemplate.update(sql, user.getPassword(), user.getFirstname(), user.getLastname(), user.getEmail());
     }
-
 
     public void delete(String Email) {
         String sql = "delete from Members where Email=?";
