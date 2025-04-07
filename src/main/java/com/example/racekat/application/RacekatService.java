@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.racekat.domain.Racekat.*;
+
 @Service
 public class RacekatService {
 
@@ -34,21 +36,25 @@ public class RacekatService {
 
     public Racekat createCat(Racekat racekat, MultipartFile imageFile) throws IOException {
         if (imageFile != null && !imageFile.isEmpty()) {
-            String fileName = UUID.randomUUID().toString() + "." + imageFile.getOriginalFilename();
+            String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir + fileName);
 
             Files.write(uploadPath, imageFile.getBytes());
-            racekatrepo.setImageUrl("/upload/" + fileName);
+            Racekat.setImageUrl("/upload/" + fileName);
         }
         return racekatrepo.save(racekat);
     }
 
-    public Racekat getUserByCatName(String Catname) {
-        return racekatrepo.findByName(Catname);
+
+    public List<Racekat> getAllPosts(){
+        return racekatrepo.findAll();
     }
 
-    public List<Racekat> getAllUsers(){
-        return racekatrepo.findAll();
+    public List<Racekat> getPostsByUserId(int userId){
+        return racekatrepo.findByUserId(userId);
+    }
+    public  Racekat getPostById(int Catid) {
+        return racekatrepo.findById(Catid);
     }
 
     public void updateRacecat(Racekat racekat, MultipartFile imageFile) throws IOException {
@@ -66,7 +72,7 @@ public class RacekatService {
             String fileName = UUID.randomUUID().toString() + "." + imageFile.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir + fileName);
             Files.write(uploadPath, imageFile.getBytes());
-            racekatrepo.setImageUrl("/upload/" + fileName);
+            Racekat.setImageUrl("/upload/" + fileName);
         }
         racekatrepo.update(racekat);
     }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${post.catName}">Kat Detaljer</title>
+    <link rel="stylesheet" href="/static/startersheet.css">
+    <style>
+        .post-detail {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .post-image-large {
+            width: 100%;
+            max-width: 500px;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .post-info-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            width: 100px;
+        }
+
+        .info-value {
+            flex: 1;
+        }
+
+        .description-box {
+            margin-top: 20px;
+            padding: 15px;

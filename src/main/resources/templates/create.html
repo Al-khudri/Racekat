@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="da">
+
+  <meta charset="UTF-8">
+  <title>Tilføj Ny Kat</title>
+
+</head>
+<body>
+<div class="container">
+  <h2>Tilføj Ny Kat</h2>
+
+  <div th:if="${error}" class="error" th:text="${error}"></div>
+
+  <form action="/posts/create" method="post" enctype="multipart/form-data" th:object="${catId}">
+    <label>Kattens Navn</label>
+    <input type="text" th:field="*{catname}" required>
+
+    <label>Race</label>
+    <input type="text" th:field="*{breed}" required>
+
+    <label>Alder (år)</label>
+    <input type="number" th:field="*{age}" min="0" max="30" required>
+
+    <label>Beskrivelse</label>
+    <textarea th:field="*{description}" rows="4" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+
+    <label>Billede</label>
+    <input type="file" name="imageFile" accept="image/*" style="border: none;">
+
+    <button type="submit">Tilføj Kat</button>
+  </form>
+
+  <div class="link">
+    <a href="/posts">Tilbage til Katte</a>
+  </div>
+</div>
+</body>
+</html>

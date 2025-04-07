@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Posts</title>
+</head>
+<body>
+<div class="container" style="width: 90%; max-width: 1200px;">
+  <h2>Mine Katte</h2>
+
+  <div class="btn-container">
+    <a href="/posts/create">Tilføj Ny Kat</a>
+    <a href="/posts">Alle Katte</a>
+    <a href="/loggedin">Tilbage til Profil</a>
+  </div>
+
+  <div th:if="${message}" class="success" th:text="${message}"></div>
+
+  <div class="posts-container">
+    <div th:each="post : ${posts}" class="post-card">
+      <img th:if="${post.imageUrl}" th:src="${post.imageUrl}" class="post-image" alt="Kattebillede">
+      <img th:unless="${post.imageUrl}" src="/images/default-cat.jpg" class="post-image" alt="Standard kattebillede">
+
+      <div class="post-content">
+        <h3 class="post-title" th:text="${post.catName}">Kat Navn</h3>
+        <p class="post-info">
+          <span th:text="${post.breed}">Race</span> •
+          <span th:text="${post.age} + ' år'">Alder</span>
+        </p>
+        <p th:if="${post.description}" th:text="${post.description}">Beskrivelse</p>
+
+        <div class="post-action">
+          <a th:href="@{/posts/edit/{id}(id=${post.postId})}">Redigér</a>
+          <a th:href="@{/posts/delete/{id}(id=${post.postId})}"
+             onclick="return confirm('Er du sikker på, at du vil slette denne kat?')">Slet</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${posts.empty}" style="text-align: center; margin-top: 40px;">
+    <p>Du har ikke tilføjet nogen katte endnu.</p>
+    <a href="/posts/create" style="display: inline-block; margin-top: 10px;">Tilføj Din Første Kat</a>
+  </div>
+</div>
+</body>
+</html>

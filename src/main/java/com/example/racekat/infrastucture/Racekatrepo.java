@@ -42,46 +42,50 @@ public class Racekatrepo  {
 
         return racekat;
     }
+    public List<Racekat> findAll() {
+        String sql = "SELECT cp.*, CONCAT(m.FirstName, ' ', m.LastName) AS ownerName "
+                + "FROM CatPosts cp " + "JOIN Members m ON cp.UserID = m.id "
+                + "WHERE cp.UserID = ? " + "ORDER BY cp.CreatedAt DESC";
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class));
 
-    public List<Racekat> findById(int catId) {
+    }
+
+    public List<Racekat> findByUserId(int userId) {
        try{
            String sql = "SELECT cp.*, CONCAT(m.FirstName, ' ', m.LastName) AS ownerName " +
                    "FROM CatPosts cp " +
                    "JOIN Members m ON cp.UserId = m.id " +
                    "WHERE cp.catId = ?";
-           return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), catId);
+           return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class), userId);
        }catch (Exception e){
            return null;
        }
 
     }
 
-
-    public Racekat findByName(String Catname) {
+    public Racekat findById(int catId) {
         try {
-            String sql = "select * from Racekat where Catname=?";
-            return jdbcTemplate.queryForObject(sql, new Object[]{Catname}, new BeanPropertyRowMapper<>(Racekat.class));
+            String sql = "SELECT cp.*, CONCAT(m.FirstName, ' ', m.LastName) AS ownerName " +
+                    "FROM CatPosts cp " +
+                    "JOIN Members m ON cp.UserID = m.id " +
+                    "WHERE cp.PostID = ?";
+            return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Racekat.class), catId);
         } catch (Exception e) {
-
+            return null;
         }
-        return null;
     }
 
 
-    public List<Racekat> findAll() {
-        String sql = "SELECT cp.*, CONCAT(m.FirstName, ' ', m.LastName) AS ownerName " + "FROM CatPosts cp " + "JOIN Members m ON cp.UserID = m.id " + "WHERE cp.UserID = ? " + "ORDER BY cp.CreatedAt DESC";
-        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Racekat.class));
 
-    }
     public void update(Racekat racekat) {
         String sql = "update Racekat set Catname=?, Breed=?, Age=?, imageURL=?, Description=?, createdAt=? where id=?";
         jdbcTemplate.update(sql,racekat.getCatName(),racekat.getBreed(),racekat.getAge());
     }
 
 
-    public void delete(String Email) {
+    public void delete(int catId) {
         String sql = "delete from Racekat where CatID=?";
-        jdbcTemplate.update(sql,Email);
+        jdbcTemplate.update(sql,catId);
 
     }
 

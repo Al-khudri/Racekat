@@ -5,13 +5,38 @@ import java.time.LocalDateTime;
 
 public class Racekat {
 
+    private int catId; //post
+    private String catname;
+    private String breed;
+    private int age;
+    private String imageUrl;
+    private String description;
+    private LocalDateTime createdAt;
+    private int userId; //user
+    private String ownerName;
+
+    public Racekat(){
+
+    }
+
+    public Racekat(int catId, String catname, String breed, int age, String imageUrl, String description, LocalDateTime createdAt, int userId, String ownerName) {
+        this.catId = catId; //post
+        this.catname = catname;
+        this.breed =breed;
+        this.age = age;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.createdAt = LocalDateTime.now();
+        this.userId = userId; //user
+        this.ownerName = ownerName;
+
+    }
+
     public int getId() {
         return catId;
     }
-
     public void setId(int catId){
         this.catId = catId;}
-
     public String getCatName(){
         return catname;
     }
@@ -30,11 +55,9 @@ public class Racekat {
     public void setAge(int age){
         this.age = age;
     }
-
     public String getImageUrl() {
         return imageUrl;
     }
-
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
@@ -44,11 +67,9 @@ public class Racekat {
     public void setDescription(String description) {
         this.description = description;
     }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
@@ -65,31 +86,9 @@ public class Racekat {
         this.ownerName = ownerName;
     }
 
-    private int catId;
-    private String catname;
-    private String breed;
-    private int age;
-    private String imageUrl;
-    private String description;
-    private LocalDateTime createdAt;
-    private int userId;
-    private String ownerName;
 
 
-    public Racekat(){}
 
-    public Racekat(int catId, String catname, String breed, int age, String imageUrl, String description, LocalDateTime createdAt, int userId, String ownerName) {
-        this.catId = catId;
-        this.catname = catname;
-        this.breed =breed;
-        this.age = age;
-        this.imageUrl = imageUrl;
-        this.description = description;
-        this.createdAt = LocalDateTime.now();
-        this.userId = userId;
-        this.ownerName = ownerName;
-
-    }
 
 
 }
