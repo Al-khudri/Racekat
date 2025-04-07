@@ -14,27 +14,34 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/", "/index", "/register", "/login", "/static/**", "/css/**", "/images/**").permitAll()
-                                .anyRequest().authenticated()
+
+        http.
+                authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests.requestMatchers("/**").permitAll()
                 )
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/login")
-                                .loginProcessingUrl("/perform_login") // Use a different URL to avoid conflict
-                                .defaultSuccessUrl("/loggedin", true)
-                                .failureUrl("/login?error=true")
-                                .permitAll()
-                )
-                .logout(logout ->
-                        logout
-                                .logoutUrl("/logout")
-                                .logoutSuccessUrl("/login?logout")
-                                .permitAll()
-                )
-                .csrf(csrf -> csrf.disable()); // For simplicity - enable in production
+                .formLogin(formLogin -> formLogin.disable())
+                .csrf(csrf -> csrf.disable());
+//        http
+//                .authorizeHttpRequests(authorizeRequests ->
+//                        authorizeRequests
+//                                .requestMatchers("/", "/index", "/register", "/login", "/static/**", "/css/**", "/images/**").permitAll()
+//                                .anyRequest().authenticated()
+//                )
+//                .formLogin(formLogin ->
+//                        formLogin
+//                                .loginPage("/login")
+//                                .loginProcessingUrl("/perform_login") // Use a different URL to avoid conflict
+//                                .defaultSuccessUrl("/loggedin", true)
+//                                .failureUrl("/login?error=true")
+//                                .permitAll()
+//                )
+//                .logout(logout ->
+//                        logout
+//                                .logoutUrl("/logout")
+//                                .logoutSuccessUrl("/login?logout")
+//                                .permitAll()
+//                )
+//                .csrf(csrf -> csrf.disable()); // For simplicity - enable in production
 
         return http.build();
     }

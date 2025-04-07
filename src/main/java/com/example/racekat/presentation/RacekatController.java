@@ -69,9 +69,10 @@ public class RacekatController {
     // Manual login endpoint - this will bypass Spring Security
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpSession session, Model model) {
-        System.out.println("Custom login attempt with: " + user.getEmail());
+        System.out.println("Custom login attempt with: " + user.getEmail() + " and password length: " + (user.getPassword() != null ? user.getPassword().length() : 0));
 
         User loggedInUser = userService.Login(user.getEmail(), user.getPassword());
+        System.out.println("Login result: " + (loggedInUser != null ? "Success" : "Failed"));
 
         if (loggedInUser != null) {
             // Set in session
