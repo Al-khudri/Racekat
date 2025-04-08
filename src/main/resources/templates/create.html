@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="da">
-
+<head>
   <meta charset="UTF-8">
   <title>Tilføj Ny Kat</title>
-
+  <link rel="stylesheet" href="/startersheet.css">
 </head>
 <body>
 <div class="container">
@@ -11,9 +11,9 @@
 
   <div th:if="${error}" class="error" th:text="${error}"></div>
 
-  <form action="/posts/create" method="post" enctype="multipart/form-data" th:object="${catId}">
+  <form action="/posts/create" method="post" enctype="multipart/form-data" th:object="${catPost}">
     <label>Kattens Navn</label>
-    <input type="text" th:field="*{catname}" required>
+    <input type="text" th:field="*{catName}" required>
 
     <label>Race</label>
     <input type="text" th:field="*{breed}" required>

@@ -35,7 +35,7 @@ public class RacekatController {
         return "index";
     }
 
-    @GetMapping("/index")
+    @GetMapping("/home")
     public String index() {
         return "index";
     }
@@ -129,56 +129,57 @@ public class RacekatController {
         return "redirect:/login";
     }
 
-    //
-
-    @GetMapping("/index")
+    @GetMapping("/posts")
     public String showAllPosts(Model model) {
         List<Racekat> posts = racekatService.getAllPosts();
         model.addAttribute("posts", posts);
         return "list";
-
     }
 
-    @GetMapping("/create")
+    @GetMapping("/posts/create")
     public String showCreateForm(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
-        if (loggedInUser != null) {
+        if (loggedInUser == null) {
             return "redirect:/login";
         }
-        model.addAttribute("racekat", new Racekat());
-        return "index/create";
+        model.addAttribute("catPost", new Racekat());
+        return "create";
     }
-    @PostMapping("/create")
-    public String createPost(@ModelAttribute Racekat racekat, @RequestParam("imageFile")MultipartFile imageFile, HttpSession session, Model model, RedirectAttributes redirectAttributes) {
+
+    @PostMapping("/posts/create")
+    public String createPost(@ModelAttribute Racekat racekat,
+                             @RequestParam("imageFile") MultipartFile imageFile,
+                             HttpSession session,
+                             RedirectAttributes redirectAttributes) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
-        if (loggedInUser != null) {
+        if (loggedInUser == null) {
             return "redirect:/login";
         }
-        try{
+        try {
             racekat.setUserId(loggedInUser.getId());
             racekatService.createCat(racekat, imageFile);
             redirectAttributes.addFlashAttribute("message", "Post created successfully");
-            return "redirect:/index";
-        }catch(Exception e){
+            return "redirect:/posts";
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Fejl under posting: " + e.getMessage());
-            return "redirect:/index/create";
+            return "redirect:/posts/create";
         }
-
     }
-    @GetMapping("/my-posts")
+
+    @GetMapping("/posts/my-posts")
     public String showMyPosts(Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if (loggedInUser == null) {
             return "redirect:/login";
         }
 
-        List<Racekat> posts = RacekatService.getPostsByUserId(loggedInUser.getId());
+        List<Racekat> posts = racekatService.getPostsByUserId(loggedInUser.getId());
         model.addAttribute("posts", posts);
-        return "index/my-posts";
+        return "my-posts";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable("id") int CatId,
+    @GetMapping("/posts/edit/{id}")
+    public String showEditForm(@PathVariable("id") int catId,
                                Model model,
                                HttpSession session) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
@@ -186,17 +187,17 @@ public class RacekatController {
             return "redirect:/login";
         }
 
-        Racekat post = RacekatService.getPostById(CatId);
+        Racekat post = racekatService.getPostById(catId);
         if (post == null || post.getUserId() != loggedInUser.getId()) {
-            return "redirect:/index";
+            return "redirect:/posts";
         }
 
         model.addAttribute("catPost", post);
-        return "index/edit";
+        return "edit";
     }
 
-    @PostMapping("/edit/{id}")
-    public String updatePost(@PathVariable("id") int CatId,
+    @PostMapping("/posts/edit/{id}")
+    public String updatePost(@PathVariable("id") int catId,
                              @ModelAttribute Racekat racekat,
                              @RequestParam("imageFile") MultipartFile imageFile,
                              HttpSession session,
@@ -206,29 +207,29 @@ public class RacekatController {
             return "redirect:/login";
         }
 
-        Racekat existingPost = RacekatService.getPostById(CatId);
+        Racekat existingPost = racekatService.getPostById(catId);
         if (existingPost == null || existingPost.getUserId() != loggedInUser.getId()) {
-            return "redirect:/index";
+            return "redirect:/posts";
         }
 
         try {
-            racekat.setId(CatId);
+            racekat.setId(catId);
             racekat.setUserId(loggedInUser.getId());
             if (imageFile.isEmpty() && existingPost.getImageUrl() != null) {
                 racekat.setImageUrl(existingPost.getImageUrl());
             }
 
-            RacekatService.updateRacecat(racekat, imageFile);
+            racekatService.updateRacecat(racekat, imageFile);
             redirectAttributes.addFlashAttribute("message", "Cat post updated successfully!");
-            return "redirect:/index/my-posts";
+            return "redirect:/posts/my-posts";
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("error", "Failed to update post: " + e.getMessage());
-            return "redirect:/index/edit/" + CatId;
+            return "redirect:/posts/edit/" + catId;
         }
     }
 
-    @GetMapping("/delete/{id}")
-    public String deletePost(@PathVariable("id") int CatID,
+    @GetMapping("/posts/delete/{id}")
+    public String deletePost(@PathVariable("id") int catId,
                              HttpSession session,
                              RedirectAttributes redirectAttributes) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
@@ -236,25 +237,24 @@ public class RacekatController {
             return "redirect:/login";
         }
 
-        Racekat post = RacekatService.getPostById(CatID);
+        Racekat post = racekatService.getPostById(catId);
         if (post == null || post.getUserId() != loggedInUser.getId()) {
-            return "redirect:/index";
+            return "redirect:/posts";
         }
 
-        RacekatService.deleteCat(CatID);
+        racekatService.deleteCat(catId);
         redirectAttributes.addFlashAttribute("message", "Cat post deleted successfully!");
-        return "redirect:/index/my-posts";
+        return "redirect:/posts/my-posts";
     }
 
-    @GetMapping("/view/{id}")
+    @GetMapping("/posts/view/{id}")
     public String viewPost(@PathVariable("id") int postId, Model model) {
-        Racekat post = RacekatService.getPostById(postId);
+        Racekat post = racekatService.getPostById(postId);
         if (post == null) {
-            return "redirect:/index";
+            return "redirect:/posts";
         }
 
         model.addAttribute("post", post);
-        return "index/view";
+        return "view";
     }
 }
-
