@@ -178,7 +178,7 @@ public class RacekatController {
         return "my-posts";
     }
 
-    @GetMapping("/posts/edit/{id}")
+    @GetMapping("/posts/view/{id}")
     public String showEditForm(@PathVariable("id") int catId,
                                Model model,
                                HttpSession session) {
@@ -193,10 +193,10 @@ public class RacekatController {
         }
 
         model.addAttribute("catPost", post);
-        return "edit";
+        return "view";
     }
 
-    @PostMapping("/posts/edit/{id}")
+    @PostMapping("/posts/view/{id}")
     public String updatePost(@PathVariable("id") int catId,
                              @ModelAttribute Racekat racekat,
                              @RequestParam("imageFile") MultipartFile imageFile,
@@ -224,7 +224,7 @@ public class RacekatController {
             return "redirect:/posts/my-posts";
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("error", "Failed to update post: " + e.getMessage());
-            return "redirect:/posts/edit/" + catId;
+            return "redirect:/posts/view/" + catId;
         }
     }
 
