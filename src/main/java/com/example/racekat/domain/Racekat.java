@@ -86,9 +86,4 @@ public class Racekat {
         this.ownerName = ownerName;
     }
 
-
-
-
-
-
 }

@@ -1,49 +1,44 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="da" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${post.catName}">Kat Detaljer</title>
-    <link rel="stylesheet" href="/static/startersheet.css">
-    <style>
-        .post-detail {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-        }
+    <link rel="stylesheet" href="/startersheet.css">
+</head>
+<body>
+<div class="container">
+    <div class="post-detail">
+        <img th:if="${post.imageUrl}" th:src="${post.imageUrl}" class="post-image-large" alt="Kattebillede">
+        <img th:unless="${post.imageUrl}" src="/images/default-cat.jpg" class="post-image-large" alt="Standard kattebillede">
 
-        .post-image-large {
-            width: 100%;
-            max-width: 500px;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
+        <div class="post-info-box">
+            <h2 th:text="${post.catName}">Kat Navn</h2>
 
-        .post-info-box {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 500px;
-        }
+            <div class="info-row">
+                <div class="info-label">Race:</div>
+                <div class="info-value" th:text="${post.breed}">Race</div>
+            </div>
 
-        .info-row {
-            display: flex;
-            margin-bottom: 10px;
-        }
+            <div class="info-row">
+                <div class="info-label">Alder:</div>
+                <div class="info-value" th:text="${post.age} + ' år'">Alder</div>
+            </div>
 
-        .info-label {
-            font-weight: bold;
-            width: 100px;
-        }
+            <div class="info-row">
+                <div class="info-label">Ejer:</div>
+                <div class="info-value" th:text="${post.ownerName}">Ejer Navn</div>
+            </div>
 
-        .info-value {
-            flex: 1;
-        }
+            <div class="description-box" th:if="${post.description}">
+                <h3>Beskrivelse</h3>
+                <p th:text="${post.description}">Beskrivelse af katten</p>
+            </div>
+        </div>
 
-        .description-box {
-            margin-top: 20px;
-            padding: 15px;
+        <div class="btn-container" style="margin-top: 20px;">
+            <a href="/posts">Tilbage til Katte</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
