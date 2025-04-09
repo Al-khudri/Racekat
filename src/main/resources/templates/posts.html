@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Katte Opslag</title>
+  <link rel="stylesheet" href="/startersheet.css">
+
+</head>
+<body>
+<div class="container" style="width: 90%; max-width: 1200px;">
+  <h2>Katte Opslag</h2>
+
+  <div class="btn-container">
+    <a href="/posts/create">Tilføj Ny Kat</a>
+    <a href="/posts/my-posts">Mine Katte</a>
+    <a href="/loggedin">Tilbage til Profil</a>
+  </div>
+
+  <div th:if="${message}" class="success" th:text="${message}"></div>
+
+  <div class="posts-container">
+    <div th:each="post : ${posts}" class="post-card">
+      <img th:if="${post.imageUrl}" th:src="${post.imageUrl}" class="post-image" alt="Kattebillede">
+      <img th:unless="${post.imageUrl}" src="/images/Skærmbillede 2024-09-26 184052.png" class="post-image" alt="Standard kattebillede">
+
+      <div class="post-content">
+        <h3 class="post-title" th:text="${post.catName}">Kat Navn</h3>
+        <p class="post-info">
+          <span th:text="${post.breed}">Race</span> •
+          <span th:text="${post.age} + ' år'">Alder</span>
+        </p>
+        <p th:if="${post.description}" th:text="${post.description}">Beskrivelse</p>
+        <p class="post-owner">Ejer: <span th:text="${post.ownerName}">Ejer Navn</span></p>
+
+        <div class="btn-container">
+          <a th:href="@{/posts/view/{id}(id=${post.id})}">Se Detaljer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:if="${posts.empty}" style="text-align: center; margin-top: 40px;">
+    <p>Ingen katte at vise endnu. Vær den første til at tilføje en!</p>
+  </div>
+</div>
+</body>
+</html>

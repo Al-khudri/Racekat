@@ -179,24 +179,38 @@ public class RacekatController {
     }
 
     @GetMapping("/posts/view/{id}")
-    public String showEditForm(@PathVariable("id") int catId,
-                               Model model,
-                               HttpSession session) {
+    public String viewPost(@PathVariable("id") int catId, Model model, HttpSession session) {
+        if (!preparePostForDisplay(catId, model, session)) {
+            return "redirect:/posts";
+        }
+        return "view";
+    }
+
+    @GetMapping("/posts/edit/{id}")
+    public String editPost(@PathVariable("id") int catId, Model model, HttpSession session) {
+        if (!preparePostForDisplay(catId, model, session)) {
+            return "redirect:/posts";
+        }
+        return "edit";
+    }
+
+    private boolean preparePostForDisplay(int catId, Model model, HttpSession session) {
         User loggedInUser = (User) session.getAttribute("LoggedInUser");
         if (loggedInUser == null) {
-            return "redirect:/login";
+            return false;
         }
 
         Racekat post = racekatService.getPostById(catId);
         if (post == null || post.getUserId() != loggedInUser.getId()) {
-            return "redirect:/posts";
+            return false;
         }
 
         model.addAttribute("catPost", post);
-        return "view";
+        return true;
     }
 
-    @PostMapping("/posts/view/{id}")
+
+    @PostMapping("/posts/edit/{id}")
     public String updatePost(@PathVariable("id") int catId,
                              @ModelAttribute Racekat racekat,
                              @RequestParam("imageFile") MultipartFile imageFile,
@@ -224,7 +238,7 @@ public class RacekatController {
             return "redirect:/posts/my-posts";
         } catch (IOException e) {
             redirectAttributes.addFlashAttribute("error", "Failed to update post: " + e.getMessage());
-            return "redirect:/posts/view/" + catId;
+            return "redirect:/posts/edit/" + catId;
         }
     }
 
@@ -247,14 +261,5 @@ public class RacekatController {
         return "redirect:/posts/my-posts";
     }
 
-    @GetMapping("/posts/view/{id}")
-    public String viewPost(@PathVariable("id") int postId, Model model) {
-        Racekat post = racekatService.getPostById(postId);
-        if (post == null) {
-            return "redirect:/posts";
-        }
 
-        model.addAttribute("post", post);
-        return "view";
-    }
 }

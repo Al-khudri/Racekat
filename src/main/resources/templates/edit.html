@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <title>Rediger Kat</title>
+  <link rel="stylesheet" href="/startersheet.css">
+</head>
+<body>
+<div class="container">
+  <h2>Rediger Kat</h2>
+
+  <div th:if="${error}" class="error" th:text="${error}"></div>
+
+  <form th:action="@{/posts/edit/{id}(id=${catPost.id})}" method="post" enctype="multipart/form-data" th:object="${catPost}">
+    <label>Kattens Navn</label>
+    <input type="text" th:field="*{catName}" required>
+
+    <label>Race</label>
+    <input type="text" th:field="*{breed}" required>
+
+    <label>Alder (år)</label>
+    <input type="number" th:field="*{age}" min="0" max="30" required>
+
+    <label>Beskrivelse</label>
+    <textarea th:field="*{description}" rows="4" style="width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+
+    <div class="current-image" th:if="${catPost.imageUrl}">
+      <p>Nuværende billede:</p>
+      <img th:src="${catPost.imageUrl}" style="max-width: 200px; max-height: 200px;">
+    </div>
+
+    <label>Nyt billede (valgfrit)</label>
+    <input type="file" name="imageFile" accept="image/*" style="border: none;">
+    <p class="hint">Lad være tom for at beholde det nuværende billede</p>
+
+    <button type="submit">Gem Ændringer</button>
+  </form>
+
+  <div class="link">
+    <a href="/posts/my-posts">Tilbage til Mine Katte</a>
+  </div>
+</div>
+</body>
+</html>
