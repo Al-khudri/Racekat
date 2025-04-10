@@ -21,7 +21,7 @@
   <div class="posts-container">
     <div th:each="post : ${posts}" class="post-card">
       <img th:if="${post.imageUrl}" th:src="${post.imageUrl}" class="post-image" alt="Kattebillede">
-      <img th:unless="${post.imageUrl}" src="/images/Skærmbillede 2024-09-26 184052.png" class="post-image" alt="Standard kattebillede">
+      <img th:unless="${post.imageUrl}" src="/upload" class="post-image" alt="Standard kattebillede">
 
       <div class="post-content">
         <h3 class="post-title" th:text="${post.catName}">Kat Navn</h3>

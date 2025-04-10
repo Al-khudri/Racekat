@@ -177,6 +177,16 @@ public class RacekatController {
         model.addAttribute("posts", posts);
         return "my-posts";
     }
+//    @PostMapping("/kat")
+//    public String kat(Model model, HttpSession session) {
+//        return "/kat";
+//    }
+//
+//
+//    @GetMapping("/kat")
+//    public String showkat(Model model, HttpSession session){
+//        return "/kat";
+//    }
 
     @GetMapping("/posts/view/{id}")
     public String viewPost(@PathVariable("id") int catId, Model model, HttpSession session) {
