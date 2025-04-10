@@ -67,7 +67,7 @@ public class RacekatService {
             String fileName = UUID.randomUUID().toString() + "_" + imageFile.getOriginalFilename();
             Path uploadPath = Paths.get(uploadDir + fileName);
             Files.write(uploadPath, imageFile.getBytes());
-            racekat.setImageUrl("/upload/" + fileName);
+            racekat.setImageUrl("/image/" + fileName);
         }
         racekatrepo.update(racekat);
     }

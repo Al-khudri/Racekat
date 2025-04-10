@@ -133,7 +133,7 @@ public class RacekatController {
     public String showAllPosts(Model model) {
         List<Racekat> posts = racekatService.getAllPosts();
         model.addAttribute("posts", posts);
-        return "list";
+        return "posts";
     }
 
     @GetMapping("/posts/create")
@@ -177,6 +177,7 @@ public class RacekatController {
         model.addAttribute("posts", posts);
         return "my-posts";
     }
+
 //    @PostMapping("/kat")
 //    public String kat(Model model, HttpSession session) {
 //        return "/kat";

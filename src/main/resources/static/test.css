@@ -1,0 +1,175 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f7f7f7;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #3d405b;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    border-bottom: 2px solid #e07a5f;
+    padding-bottom: 10px;
+}
+
+/* Button Container */
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 15px 0 25px;
+    flex-wrap: wrap;
+}
+
+.btn-container a {
+    background-color: #3d405b;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-container a:hover {
+    background-color: #e07a5f;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Success Message */
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 12px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Posts Container */
+.posts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+/* Post Card */
+.post-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Post Image */
+.post-image {
+    width: 100%;
+    height: 180px; /* Reduced from 220px */
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.post-card:hover .post-image {
+    transform: scale(1.05);
+}
+
+/* Post Content */
+.post-content {
+    padding: 15px;
+}
+
+.post-title {
+    color: #3d405b;
+    margin-bottom: 8px;
+    font-size: 1.3rem; /* Slightly reduced from 1.4rem */
+}
+
+.post-info {
+    color: #6d6875;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.post-owner {
+    font-size: 0.9rem;
+    color: #6d6875;
+    margin: 10px 0;
+}
+
+/* Empty State */
+.posts-container + div {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px dashed #ced4da;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .posts-container {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+    }
+
+    .post-image {
+        height: 160px; /* Reduced from 180px */
+    }
+}
+
+@media (max-width: 480px) {
+    .posts-container {
+        grid-template-columns: 1fr;
+    }
+
+    .post-card {
+        max-width: 240px; /* Smaller on mobile */
+    }
+
+    .post-image {
+        height: 150px; /* Even smaller on mobile */
+    }
+
+    .btn-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-container a {
+        width: 100%;
+        text-align: center;
+    }
+}
