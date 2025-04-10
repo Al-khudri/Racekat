@@ -1,0 +1,33 @@
+sequenceDiagram
+    actor User
+    participant System
+
+    User->>System: View all cat posts
+    System-->>User: Display all cat posts
+
+    User->>System: Request to create new cat post
+    alt Not logged in
+        System-->>User: Redirect to login page
+    else Logged in
+        System-->>User: Display cat post creation form
+        User->>System: Fill form with cat details and image
+        User->>System: Submit new cat post
+        System->>System: Process and save post with image
+        System-->>User: Redirect to posts page with success message
+    end
+
+    User->>System: View my posts
+    System-->>User: Display user's posts
+
+    User->>System: Select post to edit
+    System-->>User: Display edit form with current data
+    User->>System: Modify post data
+    User->>System: Submit updated post
+    System->>System: Process and update post
+    System-->>User: Redirect to my posts with success message
+
+    User->>System: Select post to delete
+    System-->>User: Ask for confirmation
+    User->>System: Confirm deletion
+    System->>System: Delete post and associated image
+    System-->>User: Redirect to my posts with success message

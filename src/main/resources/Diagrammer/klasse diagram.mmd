@@ -1,0 +1,147 @@
+classDiagram
+%% Domain Classes
+    class Racekat {
+        -int catId
+        -String catname
+        -String breed
+        -int age
+        -String imageUrl
+        -String description
+        -LocalDateTime createdAt
+        -int userId
+        -String ownerName
+        +getId() int
+        +setId(int)
+        +getCatName() String
+        +setCatName(String)
+        +getBreed() String
+        +setBreed(String)
+        +getAge() int
+        +setAge(int)
+        +getImageUrl() String
+        +setImageUrl(String)
+        +getDescription() String
+        +setDescription(String)
+        +getCreatedAt() LocalDateTime
+        +setCreatedAt(LocalDateTime)
+        +getUserId() int
+        +setUserId(int)
+        +getOwnerName() String
+        +setOwnerName(String)
+    }
+
+    class User {
+        -int id
+        -String Email
+        -String password
+        -String firstname
+        -String lastname
+        +getId() int
+        +setId(int)
+        +getEmail() String
+        +setEmail(String)
+        +getPassword() String
+        +setPassword(String)
+        +getFirstname() String
+        +setFirstname(String)
+        +getLastname() String
+        +setLastname(String)
+    }
+
+%% Application Services
+    class RacekatService {
+        -Racekatrepo racekatrepo
+        -String uploadDir
+        +RacekatService(Racekatrepo)
+        +createCat(Racekat, MultipartFile) Racekat
+        +getAllPosts() List~Racekat~
+        +getPostsByUserId(int) List~Racekat~
+        +getPostById(int) Racekat
+        +updateRacecat(Racekat, MultipartFile) void
+        +deleteCat(int) void
+    }
+
+    class Userservice {
+        -Userrepo userrepo
+        -BCryptPasswordEncoder passwordEncoder
+        +Userservice(Userrepo)
+        +Login(String, String) User
+        +createUser(User) User
+        +getUserByEmail(String) User
+        +getAllUsers() List~User~
+        +updateUser(User) void
+        +deleteUser(String) void
+    }
+
+%% Infrastructure
+    class Racekatrepo {
+        -JdbcTemplate jdbcTemplate
+        +Racekatrepo(JdbcTemplate)
+        +save(Racekat) Racekat
+        +findAll() List~Racekat~
+        +findByUserId(int) List~Racekat~
+        +findById(int) Racekat
+        +update(Racekat) void
+        +delete(int) void
+    }
+
+    class Userrepo {
+        -JdbcTemplate jdbcTemplate
+        +Userrepo(JdbcTemplate)
+        +save(User) User
+        +findByEmail(String) User
+        +findAll() List~User~
+        +update(User) void
+        +delete(String) void
+    }
+
+    class DatabaseConfig {
+        +dataSource() DataSource
+    }
+
+    class WebSecurityConfig {
+        +securityFilterChain(HttpSecurity) SecurityFilterChain
+        +passwordEncoder() PasswordEncoder
+    }
+
+%% Presentation
+    class RacekatController {
+        -Userservice userService
+        -RacekatService racekatService
+        +RacekatController(Userservice, RacekatService)
+        +root() String
+        +index() String
+        +showRegisterForm(Model) String
+        +register(User, Model) String
+        +showLogin(Model) String
+        +login(User, HttpSession, Model) String
+        +showLoggedIn(HttpSession, Model) String
+        +logout(HttpSession) String
+        +showAllPosts(Model) String
+        +showCreateForm(Model, HttpSession) String
+        +createPost(Racekat, MultipartFile, HttpSession, RedirectAttributes) String
+        +showMyPosts(Model, HttpSession) String
+        +viewPost(int, Model, HttpSession) String
+        +editPost(int, Model, HttpSession) String
+        -preparePostForDisplay(int, Model, HttpSession) boolean
+        +updatePost(int, Racekat, MultipartFile, HttpSession, RedirectAttributes) String
+        +deletePost(int, HttpSession, RedirectAttributes) String
+    }
+
+    class RacekatApplication {
+        +main(String[]) void
+    }
+
+%% Relationships
+    User "1" -- "0..*" Racekat : creates
+    RacekatController --> Userservice : uses
+    RacekatController --> RacekatService : uses
+    RacekatService --> Racekatrepo : uses
+    Userservice --> Userrepo : uses
+    RacekatService --> Racekat : manages
+    Userservice --> User : manages
+    Racekatrepo ..> JdbcTemplate : uses
+    Userrepo ..> JdbcTemplate : uses
+    DatabaseConfig ..> DataSource : creates
+    WebSecurityConfig ..> SecurityFilterChain : configures
+    WebSecurityConfig ..> PasswordEncoder : creates

@@ -1,0 +1,23 @@
+sequenceDiagram
+    actor User
+    participant System
+
+    User->>System: Navigate to login page
+    System-->>User: Display login form
+    User->>System: Enter email and password
+    User->>System: Submit login form
+
+    alt Invalid credentials
+        System-->>User: Display error message
+    else Valid credentials
+        System->>System: Create user session
+        System->>System: Set authentication in SecurityContext
+        System-->>User: Redirect to logged-in page
+        User->>System: Access protected pages
+        System-->>User: Display protected content
+    end
+
+    User->>System: Request logout
+    System->>System: Invalidate session
+    System->>System: Clear SecurityContext
+    System-->>User: Redirect to login page

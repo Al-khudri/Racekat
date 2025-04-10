@@ -1,0 +1,34 @@
+sequenceDiagram
+    actor User
+    participant Browser
+    participant RacekatController
+    participant Userservice
+    participant BCryptPasswordEncoder
+    participant Userrepo
+    participant Database
+
+    User->>Browser: Fill registration form
+    Browser->>RacekatController: POST /register
+    RacekatController->>Userservice: getUserByEmail(email)
+    Userservice->>Userrepo: findByEmail(email)
+    Userrepo->>Database: SELECT query
+    Database-->>Userrepo: Result
+    Userrepo-->>Userservice: User object or null
+
+    alt User exists
+        Userservice-->>RacekatController: Existing user
+        RacekatController-->>Browser: Return register page with error
+        Browser-->>User: Display error message
+    else User doesn't exist
+        RacekatController->>Userservice: createUser(user)
+        Userservice->>BCryptPasswordEncoder: encode(password)
+        BCryptPasswordEncoder-->>Userservice: Hashed password
+        Userservice->>User: setPassword(hashedPassword)
+        Userservice->>Userrepo: save(user)
+        Userrepo->>Database: INSERT query
+        Database-->>Userrepo: Success
+        Userrepo-->>Userservice: Saved user
+        Userservice-->>RacekatController: User created
+        RacekatController-->>Browser: Redirect to login
+        Browser-->>User: Display login page
+    end
